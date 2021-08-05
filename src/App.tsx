@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Cart from './Cart'
 import data from './data/items.json'
 import formatNumber from './helper/formatNumber'
+import sumItemPrices from './helper/sumItemPrices'
 
 interface CartState {
 	name: string
@@ -52,16 +53,14 @@ const App: React.FC = () => {
 		}
 	}
 
-	console.log(cartItems)
-
 	return (
 		<div>
-			<Cart value={0} />
+			<Cart value={sumItemPrices(cartItems)} />
 			<ul>
 				{data.map(({ name, price }, i) => (
 					<ListItem key={i}>
 						<p>Item Name: {name}</p>
-						<p>Price: {formatNumber(price)}</p>
+						<p>Price: ${formatNumber(price)}</p>
 						<ButtonGroup>
 							<Button onClick={handleAdd(name, price)} color="success">
 								Add
