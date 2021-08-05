@@ -22,7 +22,7 @@ const App: React.FC = () => {
 		if (cartItems.find(item => name === item.name)) {
 			const index = cartItems.findIndex(item => name === item.name)
 			const updatedCartItems = [
-				...cartItems.slice(0, index - 1),
+				...cartItems.slice(0, index),
 				{ name: cartItems[index].name, price: cartItems[index].price + price },
 				...cartItems.slice(index + 1),
 			]
@@ -31,6 +31,25 @@ const App: React.FC = () => {
 			setCartItems([...cartItems, { name, price }])
 		}
 	}
+
+	const handleRemove = (name: string, price: number) => () => {
+		const index = cartItems.findIndex(item => name === item.name)
+
+		if (index < 0) {
+			return
+		}
+
+		if (cartItems[index].price >= price) {
+			const updatedCartItems = [
+				...cartItems.slice(0, index),
+				{ name: cartItems[index].name, price: cartItems[index].price - price },
+				...cartItems.slice(index + 1),
+			]
+			setCartItems(updatedCartItems)
+		}
+	}
+
+	console.log(cartItems)
 
 	return (
 		<div>
@@ -44,7 +63,9 @@ const App: React.FC = () => {
 							<Button onClick={handleAdd(name, price)} color="success">
 								Add
 							</Button>
-							<Button color="danger">Remove</Button>
+							<Button onClick={handleRemove(name, price)} color="danger">
+								Remove
+							</Button>
 						</ButtonGroup>
 					</ListItem>
 				))}
