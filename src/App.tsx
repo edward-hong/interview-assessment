@@ -23,7 +23,10 @@ const App: React.FC = () => {
 			const index = cartItems.findIndex(item => name === item.name)
 			const updatedCartItems = [
 				...cartItems.slice(0, index),
-				{ name: cartItems[index].name, price: cartItems[index].price + price },
+				{
+					name: cartItems[index].name,
+					price: cartItems[index].price + price,
+				},
 				...cartItems.slice(index + 1),
 			]
 			setCartItems(updatedCartItems)
@@ -44,7 +47,7 @@ const App: React.FC = () => {
 				...cartItems.slice(0, index),
 				{ name: cartItems[index].name, price: cartItems[index].price - price },
 				...cartItems.slice(index + 1),
-			]
+			].filter(item => item.price !== 0)
 			setCartItems(updatedCartItems)
 		}
 	}
