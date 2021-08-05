@@ -1,5 +1,6 @@
-import Cart from './Cart'
+import { Button, ButtonGroup } from 'reactstrap'
 
+import Cart from './Cart'
 import data from './data/items.json'
 import formatNumber from './helper/formatNumber'
 
@@ -11,6 +12,10 @@ const App: React.FC = () => (
 				<li key={i}>
 					<p>Item Name: {name}</p>
 					<p>Price: {formatNumber(price)}</p>
+					<ButtonGroup>
+						<Button color="success">Buy</Button>
+						<Button color="danger">Remove</Button>
+					</ButtonGroup>
 				</li>
 			))}
 		</ul>
